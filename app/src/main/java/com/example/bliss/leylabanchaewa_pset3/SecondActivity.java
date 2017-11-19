@@ -35,11 +35,9 @@ public class SecondActivity extends AppCompatActivity {
     ListView listView2;
     ArrayAdapter mAdapter;
     List<String> item_info= new ArrayList<String>();
-    List<String> total_price = new ArrayList<String>();
+    List<String> order= new ArrayList<String>();
     String info;
     String categorie;
-
-
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener;
 
@@ -49,11 +47,11 @@ public class SecondActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.navigation_ordered:
-                        mTextMessage.setText(R.string.title_menu);
+                    case R.id.navigation_menu:
+
                         return true;
                     case R.id.navigation_goto_pay:
-                        mTextMessage.setText(R.string.title_yourorder);
+
                         return true;
                 }
                 return false;
@@ -91,9 +89,28 @@ public class SecondActivity extends AppCompatActivity {
         listView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
-                Intent intent = new Intent(SecondActivity.this, ThirdActivity.class);
-                intent.putExtra("order_list", listView2.getItemAtPosition(i).toString());
-                startActivity(intent);
+
+                order.add(listView2.getItemAtPosition(i).toString());
+//
+            }
+        });
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.navigation_menu:
+                        Intent intent1 = new Intent(SecondActivity.this, MainActivity.class);
+                        startActivity(intent1);
+                        break;
+                    case R.id.navigation_goto_pay:
+                        Intent intent2 = new Intent(SecondActivity.this, ThirdActivity.class);
+                        intent2.putStringArrayListExtra("order_list", (ArrayList<String>) order);
+                        startActivity(intent2);
+                        break;
+                }
+                return false;
             }
         });
 

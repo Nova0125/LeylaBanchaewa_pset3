@@ -12,7 +12,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -46,11 +45,9 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.navigation_ordered:
-                        mTextMessage.setText(R.string.title_menu);
+                    case R.id.navigation_menu:
                         return true;
                     case R.id.navigation_goto_pay:
-                        mTextMessage.setText(R.string.title_yourorder);
                         return true;
                 }
                 return false;
@@ -83,6 +80,22 @@ public class MainActivity extends AppCompatActivity{
                 Intent intent = new Intent(MainActivity.this, SecondActivity.class);
                 intent.putExtra("menuItem", listView.getItemAtPosition(i).toString());
                 startActivity(intent);
+            }
+        });
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.navigation_menu:
+                        break;
+                    case R.id.navigation_goto_pay:
+                        Intent intent2 = new Intent(MainActivity.this, ThirdActivity.class);
+                        startActivity(intent2);
+                        break;
+                }
+                return false;
             }
         });
     }
