@@ -1,6 +1,8 @@
 package com.example.bliss.leylabanchaewa_pset3;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -91,10 +93,16 @@ public class SecondActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
 
                 order.add(listView2.getItemAtPosition(i).toString());
-//
+
+                SharedPreferences settings = SecondActivity.this.getSharedPreferences("prefs", MODE_PRIVATE);
+                SharedPreferences.Editor editor = settings.edit();
+                editor.putString("items", order.toString());
+                editor.commit();
+
+                Log.d("item_clicked", order.toString());
+
             }
         });
-
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
